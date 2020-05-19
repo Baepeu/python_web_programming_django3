@@ -2,4 +2,6 @@
 venv
 __pycache__
 *.pyc
+*~
 .idea
+*.sqlite3
