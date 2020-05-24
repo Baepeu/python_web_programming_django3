@@ -1,11 +1,16 @@
-<div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <form action="" method="post" enctype="multipart/form-data">
-            {{form.as_p}}
-            {%csrf_token%}
-            <input type="submit" class="btn btn-primary" value="Upload">
-        </form>
+{% extends 'base.html' %}
+{% block title %}- Upload{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form action="" method="post" enctype="multipart/form-data">
+                {{form.as_p}}
+                {%csrf_token%}
+                <input type="submit" class="btn btn-primary" value="Upload">
+            </form>
+        </div>
+        <div class="col-md-2"></div>
     </div>
-    <div class="col-md-2"></div>
-</div>
+{% endblock %}
