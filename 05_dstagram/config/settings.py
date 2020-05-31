@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'photo',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,6 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+# reverse_lazy 함수를 사용해서 다른 뷰를 적용할 수 있다.
+LOGIN_REDIRECT_URL = '/'
