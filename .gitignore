@@ -5,3 +5,4 @@ __pycache__
 *~
 .idea
 *.sqlite3
+secret_keys.py
