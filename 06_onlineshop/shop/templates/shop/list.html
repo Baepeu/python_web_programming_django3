@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Category Page
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-2">
+        <div class="list-group">
+            <a href="/" class="list-group-item {% if not current_category %}active{% endif %}">All</a>
+            {% for c in categories %}
+             <a href="{{c.get_absolute_url}}" class="list-group-item {% if current_category.slug == c.slug %}active{% endif %}">{{c.name}}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col">
+        <div class="alert alert-info">
+            {% if current_category %}{{current_category.name}}{% else %}All Products{% endif %}
+        </div>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-4">
+                <div class="card">
+                    {%if product.image%}<img class="cart-img-top" src="{{product.image.url}}" alt="Product Image">{%endif%}
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <p class="card-text">{{product.description}} <span class="badge badge-secondary">{{product.price}}</span></p>
+                        <a href="{{product.get_absolute_url}}" class="btn btn-primary">View Detail</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
