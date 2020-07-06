@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Shopping Cart
+{% endblock %}
+
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Remove</th>
+                <th scope="col">Unit Price</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart %}
+                {% with product=item.product %}
+                <tr>
+                    <th scope="row">
+                        <a href="{{product.get_absolute_url}}">
+                            <img src="{{product.image.url}}" class="img-thumbnail">
+                        </a>
+                    </th>
+                    <td>{{product.name}}</td>
+                    <td>
+                        <form action="{% url 'cart:product_add' product.id %}" method="post">
+                            {% csrf_token %}
+                            {{item.quantity_form.quantity}}
+                            {{item.quantity_form.is_update}}
+                            <input type="submit" class="btn btn-primary" value="Update">
+                        </form>
+                    </td>
+                    <td><a href="{% url "cart:product_remove" product.id%}">Remove</a></td>
+                    <td class="num">{{item.price}}</td>
+                    <td class="num">{{item.total_price}}</td>
+                </tr>
+                {% endwith %}
+            {% endfor %}
+            <tr class="total">
+                <td>Total</td>
+                <td colspan="4"></td>
+                <td class="num">{{cart.get_product_total|floatformat:"2"}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="text-right">
+        <a href="{% url "shop:product_all" %}">Continue shopping</a>
+    </p>
+{% endblock %}
