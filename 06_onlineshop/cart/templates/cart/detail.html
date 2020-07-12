@@ -40,13 +40,33 @@ Shopping Cart
                 </tr>
                 {% endwith %}
             {% endfor %}
+            {% if cart.coupon %}
             <tr class="total">
-                <td>Total</td>
+                <td>Subtotal</td>
                 <td colspan="4"></td>
                 <td class="num">{{cart.get_product_total|floatformat:"2"}}</td>
             </tr>
+            <tr>
+                <td>{{cart.coupon.code}} coupon ({{cart.coupon.amount}})</td>
+                <td colspan="4"></td>
+                <td>- {{cart.get_discount_total|floatformat:"2"}}</td>
+            </tr>
+            {% endif %}
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td class="num">{{cart.get_total_price|floatformat:"2"}}</td>
+        </tr>
         </tbody>
     </table>
+    <p>
+        Add Coupon:
+    </p>
+    <form action="{% url 'coupon:add' %}" method="post">
+        {% csrf_token %}
+        {{add_coupon}}
+        <input type="submit" value="Add">
+    </form>
     <p class="text-right">
         <a href="{% url "shop:product_all" %}">Continue shopping</a>
     </p>
