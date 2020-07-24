@@ -83,7 +83,35 @@ class OrderTransactionManager(models.Manager):
             return None
 
 class OrderTransaction(models.Model):
-    pass
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    merchant_order_id = models.CharField(max_length=120, null=True, blank=True)
+    transaction_id = models.CharField(max_length=120, null=True, blank=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    transaction_status = models.CharField(max_length=220, null=True, blank=True)
+    type = models.CharField(max_length=120, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    objects = OrderTransactionManager()
+
+    def __str__(self):
+        return str(self.order.id)
+
+    class Meta:
+        ordering = ['-created']
 
 
+def order_payment_validation(sender, instance, created, *args, **kwargs):
+    if instance.transaction_id:
+        import_transaction = OrderTransaction.objects.get_transaction(merchant_order_id=instance.merchant_order_id)
+        merchant_order_id = import_transaction['merchant_order_id']
+        imp_id = import_transaction['imp_id']
+        amount = import_transaction['amount']
+
+        local_transaction = OrderTransaction.objects.filter(merchant_order_id=merchant_order_id, transaction_id=imp_id, amount=amount).exists()
+
+        if not import_transaction or not local_transaction:
+            raise ValueError("비정상 거래입니다.")
+
+from django.db.models.signals import post_save
+post_save.connect(order_payment_validation, sender=OrderTransaction)
 
