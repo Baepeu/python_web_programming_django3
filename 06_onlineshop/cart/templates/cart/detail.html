@@ -68,6 +68,8 @@ Shopping Cart
         <input type="submit" value="Add">
     </form>
     <p class="text-right">
-        <a href="{% url "shop:product_all" %}">Continue shopping</a>
+        <a href="{% url "shop:product_all" %}" class='btn btn-secondary'>Continue shopping</a>
+
+        <a href="{% url "orders:order_create" %}" class='btn btn-primary'>Checkout</a>
     </p>
 {% endblock %}

@@ -90,7 +90,7 @@ class OrderTransaction(models.Model):
     transaction_status = models.CharField(max_length=220, null=True, blank=True)
     type = models.CharField(max_length=120, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-
+    #success = models.BooleanField(default=False)
     objects = OrderTransactionManager()
 
     def __str__(self):

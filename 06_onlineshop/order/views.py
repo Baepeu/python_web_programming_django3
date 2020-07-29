@@ -83,3 +83,38 @@ class OrderCheckoutAjaxView(View):
             return JsonResponse(data)
         else:
             return JsonResponse({}, status=401)
+
+class OrderImpAjaxView(View):
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return JsonResponse({"authenticated": False}, status=403)
+
+        order_id = request.POST.get('order_id')
+        order = Order.objects.get(id=order_id)
+
+        merchant_id = request.POST.get('merchant_id')
+        imp_id = request.POST.get('imp_id')
+        amount = request.POST.get('amount')
+
+        try:
+            trans = OrderTransaction.objects.get(
+                order=order,
+                merchant_order_id=merchant_id,
+                amount=amount
+            )
+        except:
+            trans = None
+
+        if trans is not None:
+            trans.transaction_id = imp_id
+            #trans.success = True
+            trans.save()
+            order.paid = True
+            order.save()
+
+            data = {
+                "works":True
+            }
+            return JsonResponse(data)
+        else:
+            return JsonResponse({}, status=401)
