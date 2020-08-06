@@ -3,7 +3,7 @@ $(function() {
     IMP.init('imp11166264');
     $('.order-form').on('submit', function(e) {
         var amount = parseFloat($('.order-form input[name="amount"]').val().replace(',',''));
-        var type=$('.order-form input[name="type"]:checkout').val();
+        var type=$('.order-form input[name="type"]:checked').val();
         var order_id = AjaxCreateOrder(e);
         if(order_id==false) {
             alert('주문 생성 실패\n다시 시도해주세요.');
@@ -16,7 +16,7 @@ $(function() {
             IMP.request_pay({
                 merchant_uid:merchant_id,
                 name:'E-Shop product',
-                buyer_name:$('input[name="first_name"]').val()+" "+$('input[name="last_name"]').val();
+                buyer_name:$('input[name="first_name"]').val()+" "+$('input[name="last_name"]').val(),
                 buyer_email:$('input[name="email"]').val(),
                 amount:amount
             }, function(rsp) {
