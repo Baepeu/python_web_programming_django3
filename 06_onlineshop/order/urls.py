@@ -7,4 +7,6 @@ urlpatterns = [
     path('checkout/', OrderCheckoutAjaxView.as_view(), name='order_checkout'),
     path('validation/', OrderImpAjaxView.as_view(), name='order_validation'),
     path('complete/', order_complete, name='order_complete'),
+    path('order_detail/<int:order_id>/', admin_order_detail,name='admin_order_detail'),
+    path('order_pdf/<int:order_id>/',order_complete,name='admin_order_pdf'),
 ]

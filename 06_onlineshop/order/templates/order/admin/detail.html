@@ -1,0 +1,43 @@
+{% extends 'admin/base_site.html' %}
+{% block title %}
+    Order {{order.id}} Detail
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="{% url 'admin:index' %}">Home</a> &rsaquo;
+        <a href="{% url 'admin:order_order_changelist' %}">Orders</a> &rsaquo;
+        <a href="{% url 'admin:order_order_change' order.id %}">Order {{order.id}}</a> &rsaquo;Detail
+    </div>
+{% endblock %}
+
+{% block content %}
+    <h1>Order {{order.id}}</h1>
+    <ul class="object-tools">
+        <li>
+            <a href="#" onclock="window.print();">Print Order</a>
+        </li>
+    </ul>
+    <table>
+        <tr>
+            <th>Created</th>
+            <td>{{order.created}}</td>
+        </tr>
+        <tr>
+            <th>Customer</th>
+            <td>{{order.first_name}} {{order.last_name}}</td>
+        </tr>
+        <tr>
+            <th>E-mail</th>
+            <td>{{order.email}}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{order.address}} {{order.postal_code}} {{order.city}}</td>
+        </tr>
+        <tr>
+            <th>Total amount</th>
+            <td>{{order.get_total_price}}</td>
+        </tr>
+    </table>
+{% endblock %}
