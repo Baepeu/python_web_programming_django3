@@ -1,0 +1,47 @@
+<html>
+<body>
+    <h1>Django OnlineShop</h1>
+    <p>
+        Invoice no. {{order.id}}<br/>
+        <span class="secondary">{{order.created|date:"M d, Y"}}</span>
+    </p>
+    <h3>{% if order.paid %}Payment Accepted{%else%}Pending payment{%endif%}</h3>
+    <p>
+        {{order.first_name}} {{order.last_name}}<br>
+        {{order.email}}<br>
+        {{order.address}}<br>
+        {{order.postal_code}}, {{order.city}}<br>
+    </p>
+    <h3>Product List</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items.all %}
+                <tr class="row{% cycle "1" "2" %}">
+                    <td>{{item.product.name}}</td>
+                    <td class="num">{{item.price}}</td>
+                    <td class="num">{{item.quantity}}</td>
+                    <td class="num">{{item.get_item_price}}</td>
+                </tr>
+            {% endfor %}
+            {% if order.coupon %}
+                <tr class="discount">
+                    <td colspan="3">Discount</td>
+                    <td class="num">{{order.discount}}</td>
+                </tr>
+            {%endif%}
+                <tr class="total">
+                    <td colspan="3">Total</td>
+                    <td class="num">{{order.get_total_price}}</td>
+                </tr>
+        </tbody>
+    </table>
+</body>
+</html>
