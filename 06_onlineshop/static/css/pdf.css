@@ -1,0 +1,48 @@
+body {
+    font-family:Helvetica, sans-serif;
+    color:#222;
+    line-height:1.5em;
+}
+
+table {
+    width:100%;
+    border-spacing:0;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+
+table th, table td {
+    text-align:left;
+    font-size:14px;
+    padding:10px;
+    margin:0;
+}
+
+tbody tr:nth-child(odd) {
+    background:#efefef;
+}
+
+thead th, tbody tr.discount {
+    background:#46a500;
+    color:#fff;
+    font-weight:bold;
+}
+
+tbody tr.total {
+    background:#5993bb;
+    color:#fff;
+    font-weight:bold;
+}
+
+h1 {
+    margin:0;
+}
+
+.secondary {
+    color:#bbb;
+    margin-bottom:20px;
+}
+
+.num {
+    text-align:right;
+}

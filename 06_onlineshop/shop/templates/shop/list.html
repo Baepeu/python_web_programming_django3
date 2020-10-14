@@ -21,7 +21,7 @@
             {% for product in products %}
             <div class="col-4">
                 <div class="card">
-                    {%if product.image%}<img class="cart-img-top" src="{{product.image.url}}" alt="Product Image">{%endif%}
+                    {%if product.image%}<img class="cart-img-top" src="{{product.image.url}}" alt="Product Image" style="width:100%;">{%endif%}
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text">{{product.description}} <span class="badge badge-secondary">{{product.price}}</span></p>
